@@ -1,16 +1,17 @@
 package controllers
 
-
 import (
 	"context"
 	"fmt"
+	"github.com/docker/docker/image"
 
 	"github.com/docker/docker/api/types"
 	containertypes "github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 )
 
-func StopRunningContainers() {
+func StopRunningContainers() []string {
+	result := []string{}
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -24,11 +25,11 @@ func StopRunningContainers() {
 	}
 
 	for _, container := range containers {
-		fmt.Print("Stopping container ", container.ID[:10], "... ")
+		result = append(result, container.ID[:10])
 		noWaitTimeout := 0 // to not wait for the container to exit gracefully
 		if err := cli.ContainerStop(ctx, container.ID, containertypes.StopOptions{Timeout: &noWaitTimeout}); err != nil {
 			panic(err)
 		}
-		fmt.Println("Success")
 	}
+	return result
 }

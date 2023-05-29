@@ -2,13 +2,13 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 )
 
-func ListImages() {
+func ListImages() []string {
+	result := []string{}
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -22,6 +22,7 @@ func ListImages() {
 	}
 
 	for _, image := range images {
-		fmt.Println(image.ID)
+		result = append(result, image.ID)
 	}
+	return result
 }

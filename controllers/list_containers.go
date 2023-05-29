@@ -3,13 +3,13 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 )
 
-func ListContainers() {
+func ListContainers() []string {
+	result := []string{}
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -23,6 +23,7 @@ func ListContainers() {
 	}
 
 	for _, container := range containers {
-		fmt.Println(container.ID)
+		result = append(result, container.ID)
 	}
+	return result
 }
