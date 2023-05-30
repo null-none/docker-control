@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"os"
 
@@ -11,7 +10,7 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func RunContainerBackground(imageName string) {
+func RunContainerBackground(imageName string) string {
 
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
@@ -38,5 +37,5 @@ func RunContainerBackground(imageName string) {
 		panic(err)
 	}
 
-	fmt.Println(resp.ID)
+	return resp.ID
 }

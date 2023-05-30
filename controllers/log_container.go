@@ -9,7 +9,7 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func LogContainer(container string) {
+func LogContainer(container string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -24,4 +24,5 @@ func LogContainer(container string) {
 	}
 
 	io.Copy(os.Stdout, out)
+	return os.Stdout
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func PullImage(image string) {
+func PullImage(image string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -25,4 +25,5 @@ func PullImage(image string) {
 	defer out.Close()
 
 	io.Copy(os.Stdout, out)
+	return "success"
 }
