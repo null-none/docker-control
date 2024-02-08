@@ -1,9 +1,11 @@
 package main
 
 import (
-	Controller "./controllers"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	Controller "example.com/example/controllers"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Validate struct {
@@ -13,16 +15,19 @@ type Validate struct {
 
 func main() {
 	r := gin.Default()
+
 	r.GET("/containers", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"containers": Controller.ListContainers(),
 		})
 	})
+
 	r.GET("/images", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"images": Controller.ListImages(),
 		})
 	})
+
 	r.GET("/containers/stop", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"containers": Controller.StopRunningContainers(),
@@ -52,5 +57,6 @@ func main() {
 		}
 		c.JSON(http.StatusOK, gin.H{"status": Controller.LogContainer(json.Container)})
 	})
+
 	r.Run()
 }

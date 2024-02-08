@@ -3,7 +3,9 @@
 ### Init project
 
 ```bash
-docker-compose up
+go mod init example.com/example
+go mod tidy
+go run main.go
 ```
 
 ### Endpoints

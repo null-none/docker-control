@@ -1,8 +1,9 @@
 package controllers
 
 import (
+	"bytes"
 	"context"
-	"io"
+	"fmt"
 	"os"
 
 	"github.com/docker/docker/api/types"
@@ -23,6 +24,8 @@ func LogContainer(container string) string {
 		panic(err)
 	}
 
-	io.Copy(os.Stdout, out)
-	return os.Stdout
+	var buf bytes.Buffer
+	fmt.Fprint(&buf, out)
+	os.Stdout = os.NewFile(0, "/dev/stdout")
+	return buf.String()
 }
