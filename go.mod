@@ -3,7 +3,7 @@ module example.com/example
 go 1.19
 
 require (
-	github.com/docker/docker v25.0.3+incompatible
+	github.com/docker/docker v25.0.5+incompatible
 	github.com/gin-gonic/gin v1.9.1
 )
 
